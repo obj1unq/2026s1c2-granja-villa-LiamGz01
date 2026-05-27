@@ -10,9 +10,12 @@ program farmville {
 	game.ground("ground.png")
 
 	//  VISUALES
- 	game.addVisualCharacter(personaje)
+	game.addVisualCharacter(personaje)
  	game.addVisual(new Maiz()) // Se agrega a modo de prueba
- 	
+
+	//	INPUT
+	
+
  	//  COMIENZA
 	game.start()
 }
