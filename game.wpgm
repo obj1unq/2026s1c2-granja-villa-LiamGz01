@@ -27,7 +27,9 @@ program farmville {
 
 
 	keyboard.v().onPressDo({ personaje.vender() })
+	keyboard.a().onPressDo({ personaje.activarAspersores(new Aspersor(position = personaje.position())) })
 	keyboard.space().onPressDo({ personaje.declarar() })
+
 
  	//  COMIENZA
 	game.start()

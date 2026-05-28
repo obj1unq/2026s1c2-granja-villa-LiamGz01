@@ -100,4 +100,16 @@ object personaje {
 	method declarar() {
 		game.say(self, "Mi patrimonio es" + billetera.toString() + "monedas, y mis cosechas son" + cultivosCosechados.size() + "plantas por vender")
 	}
+
+	method activarAspersores(aspersor) {
+		self.hayAspersor()
+		game.addVisual(aspersor)
+		aspersor.activar()
+	}
+
+	method hayAspersor() {
+		if (not game.colliders(self).isEmpty()){
+			self.error("No puedo poner Aspersor")
+		}
+	}
 }

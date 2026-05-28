@@ -6,6 +6,8 @@ class Maiz {
 	var property position
 	var property estadoMaiz = cornBaby
 	
+	method esCultivo() = true 
+
 	method image() = estadoMaiz.image()
 	method serRegada() {
 		estadoMaiz = cornAdult
@@ -33,6 +35,8 @@ object cornAdult {
 class Trigo {
 	var property position
 	var property estadoTrigo = trigo00
+
+	method esCultivo() = true
 	
 	method image() = estadoTrigo.image()
 	method serRegada() {
@@ -86,6 +90,8 @@ object trigo03 {
 class Tomaco {
 	var property position
 
+	method esCultivo() = true
+
 	method image() = "tomaco.png"
 
 	method sePuedeCosechar() = true
@@ -126,6 +132,7 @@ class Mercado {
 	method image() = "market.png"
 
 	method esMercado() = true 
+	method esCultivo() = false
 
 	method compraMercaderia(mercaderia, valorDeVenta) {
 		self.tieneMonedas(valorDeVenta)
@@ -140,4 +147,37 @@ class Mercado {
 	} 
 
 	method puedeComprar(valorDeVenta) = monedas >= valorDeVenta 
+}
+
+class Aspersor {
+	var property position
+
+	method image() = "aspersor.png"
+	method esMercado() = false
+	method esCultivo() = false
+
+	method activar() {
+		const nombreAspersor = "aspersor_" + position.toString()
+
+		game.onTick(3000, nombreAspersor, {=> self.regarAlrededor()})
+
+	}
+
+	method regarAlrededor() {
+        const centro = self.position()
+        const posicionesVecinas = [centro.up(1), centro.down(1), centro.left(1), centro.right(1)]
+
+	
+		const objetosAlRededor = posicionesVecinas.flatMap({ p => game.getObjectsIn(p) })
+		const cultivosEncontrados = objetosAlRededor.filter({c => c.esCultivo()})
+		cultivosEncontrados.forEach({c => c.serRegada()})
+	
+        // posicionesVecinas.forEach({ pos => game.getObjectsIn(pos).forEach({ objeto => 
+        //         if (objeto.esUnCultivo()) {
+        //             objeto.serRegada() // Delega la acción polimórficamente a la planta
+        //         }
+        //     })
+        // })
+    }
+
 }
