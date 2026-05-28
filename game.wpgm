@@ -10,9 +10,27 @@ program farmville {
 	game.ground("ground.png")
 
 	//  VISUALES
- 	game.addVisualCharacter(personaje)
- 	game.addVisual(new Maiz()) // Se agrega a modo de prueba
- 	
+	game.addVisualCharacter(personaje)
+ 	//game.addVisual(new Maiz()) // Se agrega a modo de prueba
+
+	//	INPUT
+	keyboard.m().onPressDo({ personaje.sembrar(new Maiz( position = personaje.position())) })
+	keyboard.t().onPressDo({ personaje.sembrar(new Trigo( position = personaje.position())) })
+	keyboard.o().onPressDo({ personaje.sembrar(new Tomaco( position = personaje.position())) })
+
+	keyboard.r().onPressDo({ personaje.regar() })
+	
+	keyboard.c().onPressDo({ personaje.cosechar() })
+
+		// AGREGADO DE PONER MERCADO PARA NO TENER QUE DIBUJAR UN MAPA 
+		keyboard.k().onPressDo({personaje.ponerMercado(new Mercado( position = personaje.position()))})
+
+
+	keyboard.v().onPressDo({ personaje.vender() })
+	keyboard.a().onPressDo({ personaje.activarAspersores(new Aspersor(position = personaje.position())) })
+	keyboard.space().onPressDo({ personaje.declarar() })
+
+
  	//  COMIENZA
 	game.start()
 }
